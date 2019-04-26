@@ -12,56 +12,12 @@ from modules.api_validation import (
     get_password,
     unauthorized
 )
-
+from modules.airtable_call import airtable_call
 
 
 app = Flask(__name__)
 
-services = [
-    {
-        'id': 1,
-        'name': u'Crowdsource Rescue',
-        'desc': u'Get help when 911 is overwhelmed: citizen first responders, wellness checks, and debris removal.',
-        'icons': [
-            {
-                "text" : "18,500+ recuers & volunteers",
-                "icon" : "fas fa-first-aid fa-lg"
-            },
-            {
-                "text" : "46,000+ survivors helped",
-                "icon" : "fas fa-ambulance fa-lg"
-            }
-        ]
-    },
-    {
-        'id': 2,
-        'name': u'Harmany',
-        'desc': u'Emergency and evacuation home sharing; connects people to willing hosts.',
-        'icons': [
-            {
-                "text" : "Need a place",
-                "icon" : "fas fa-house-damage fa-lg"
-            },
-            {
-                "text" : "Have a place",
-                "icon" : "fas fa-home fa-lg"
-            }
-        ]
-    },
-    {
-        'id': 3,
-        'name': u'Airbnb',
-        'desc': u'Free, temporary housing to people who have needed to leave their home due to conflict, disasters, or medical care.',
-        'icons': [
-            {
-                "text" : "11,000+ temporary homes provided.",
-                "icon" : "fas fa-warehouse fa-lg"
-            }
-        ]
-    }
-
-]
-
+services = airtable_call()
 
 # GET for all records
 @app.route('/cards/api/services/', methods=['GET'])
