@@ -12,12 +12,18 @@ from modules.api_validation import (
     get_password,
     unauthorized
 )
-from modules.airtable_call import airtable_call
+from modules.airtable_call import (
+    airtable_call,
+    create_airtable_object
+)
 
 
 app = Flask(__name__)
 
+
+airtable_object = create_airtable_object()
 services = airtable_call()
+
 
 # GET for all records
 @app.route('/cards/api/services/', methods=['GET'])
@@ -41,27 +47,22 @@ def create_service():
     if not request.json or not 'name' in request.json:
         abort(400)
     service = {
-        "id": services[-1]["id"] + 1, # guarantees unique id
-        "name": request.json["name"],
-        "desc": request.json.get("desc", ""),
-        "icons": [
-            {
-                "text" : request.json.get("text", ""), # TODO make this work
-                "icon" : request.json.get("icon", "") # TODO same
-            }
-        ]
+        # id is handled by airtable automatically
+        "Name": request.json["name"],
+        "Desc": request.json.get("desc", ""),
+        "Icons": [] # TODO figure out icons
     }
-    services.append(service)
+    airtable_object.insert(service)
     return jsonify({'service': make_public_service(service)}), 201
 
 # DELETE
-@app.route('/cards/api/services/<int:service_id>/', methods=['DELETE'])
+@app.route('/cards/api/services/<int:service_id>', methods=['DELETE'])
 @auth.login_required
 def delete_service(service_id):
-    service = [s for s in services if s['id'] == service_id]
-    if len(service) == 0:
+    service = airtable_object.match('ID', str(service_id))
+    if not service:
         abort(404)
-    services.remove(service[0])
+    airtable_object.delete(service['id'])
     return jsonify({'result': True})
 
 # PUT

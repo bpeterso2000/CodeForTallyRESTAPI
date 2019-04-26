@@ -9,9 +9,12 @@ from airtable import Airtable
 BASE_ID = "app38cZA2uPDxdTL8" # found in url of API documentation for table
 TABLE_NAME = "Services"
 
+def create_airtable_object():
+    return Airtable(BASE_ID, TABLE_NAME)
+
 def airtable_call():
-    airtable = Airtable(BASE_ID, TABLE_NAME)
-    records = airtable.get_all()
+    airtable_object = Airtable(BASE_ID, TABLE_NAME)
+    records = airtable_object.get_all()
 
     service_list = []
     for record in records:
@@ -31,7 +34,7 @@ def airtable_call():
             pass
         try:
             for index, record_id in enumerate(record['fields']['Icons']):
-                record = airtable.get(record_id)
+                record = airtable_object.get(record_id)
                 od['icons'].append({
                     "text" : "",
                     "icon" : ""
