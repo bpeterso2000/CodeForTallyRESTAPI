@@ -61,10 +61,8 @@ def create_service():
         # id is handled by airtable automatically
         "Name": request.json["name"],
         "Desc": request.json.get("desc", ""),
-        "Icons": []
+        "Icons": [new_icons_object.get(id) for id in icon_ids]
     }
-    for id in icon_ids:
-        service["Icons"].append(new_icons_object.get(id))
     services_object.insert(service)
     return jsonify({'service': make_public_service(service)}), 201
 
