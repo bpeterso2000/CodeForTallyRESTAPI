@@ -49,6 +49,7 @@ def create_service():
     if not request.json or not 'name' in request.json:
         abort(400)
     icon_ids = []
+    icon_records = []
     for icon in request.json["icons"]:
         new_icon = {
             "icon" : icon["icon"],
@@ -56,12 +57,14 @@ def create_service():
         }
         new_icon_record = icons_object.insert(new_icon)
         icon_ids.append(new_icon_record["id"])
+        icon_records.append(new_icon_record)
     new_icons_object = create_icons_object() # refresh so we get new ones
     service = {
         # id is handled by airtable automatically
         "Name": request.json["name"],
         "Desc": request.json.get("desc", ""),
-        "Icons": [new_icons_object.get(id) for id in icon_ids]
+        "Icons": [icon_record for icon_record in icon_records] 
+                 # [new_icons_object.get(id) for id in icon_ids]
     }
     services_object.insert(service)
     return jsonify({'service': make_public_service(service)}), 201
