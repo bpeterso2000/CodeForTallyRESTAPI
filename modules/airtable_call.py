@@ -7,13 +7,17 @@ import airtable
 from airtable import Airtable
 
 BASE_ID = "app38cZA2uPDxdTL8" # found in url of API documentation for table
-TABLE_NAME = "Services"
+SERVICES_TABLE = "Services"
+ICONS_TABLE = "Icons"
 
-def create_airtable_object():
-    return Airtable(BASE_ID, TABLE_NAME)
+def create_services_object():
+    return Airtable(BASE_ID, SERVICES_TABLE)
+
+def create_icons_object():
+    return Airtable(BASE_ID, ICONS_TABLE)
 
 def airtable_call():
-    airtable_object = Airtable(BASE_ID, TABLE_NAME)
+    airtable_object = Airtable(BASE_ID, SERVICES_TABLE)
     records = airtable_object.get_all()
 
     service_list = []

@@ -117,17 +117,6 @@
   {
     "icons": [
       {
-        "text": "Find a city service",
-        "icon": "fas fa-gavel fa-lg"
-      }
-    ],
-    "id": 14,
-    "name": "Talgov.com",
-    "desc": "The official government website for the City of Tallahassee."
-  },
-  {
-    "icons": [
-      {
         "text": "Find an event",
         "icon": "fas fa-palette fa-lg"
       }
