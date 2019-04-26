@@ -115,12 +115,6 @@
     "desc": "Code For America realtime, crowdsourced shelter locator and capacity tracker. Use your phones GPS to find the closest open shelter, even if you have pets or special needs; avoid going to a shelter only to learn it's full."
   },
   {
-    "icons": [
-      {
-        "text": "Find an event",
-        "icon": "fas fa-palette fa-lg"
-      }
-    ],
     "id": 12,
     "name": "COCA",
     "desc": "Council on Culture and Arts in Tallahassee"

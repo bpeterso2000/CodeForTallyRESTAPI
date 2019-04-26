@@ -50,18 +50,21 @@ def create_service():
         abort(400)
     icon_ids = []
     for icon in request.json["icons"]:
-        new_icon = {}
-        new_icon["icon"] = icon["icon"]
-        new_icon["text"] = icon["text"]
-        new_icon_id = icons_object.insert(new_icon)
-        icon_ids.append(new_icon_id)
+        new_icon = {
+            "icon" : icon["icon"],
+            "text" : icon["text"]
+        }
+        new_icon_record = icons_object.insert(new_icon)
+        icon_ids.append(new_icon_record["id"])
+    new_icons_object = create_icons_object() # refresh so we get new ones
     service = {
         # id is handled by airtable automatically
         "Name": request.json["name"],
         "Desc": request.json.get("desc", ""),
-        "Icons": icon_ids # STILL STRUGGLING WITH THIS LINE???
+        "Icons": []
     }
-    wait = input(service)
+    for id in icon_ids:
+        service["Icons"].append(new_icons_object.get(id))
     services_object.insert(service)
     return jsonify({'service': make_public_service(service)}), 201
 
