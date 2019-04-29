@@ -85,27 +85,13 @@ def update_service(service_id):
         abort(404)
     if not request.json:
         abort(400)
-    """
-    if 'name' in request.json and type(request.json['name']) != type(unicode):
-        abort(400)
-    if 'desc' in request.json and type(request.json['desc']) is not type(unicode):
-        abort(400)
-    # TODO make this work
-    if 'icons' in request.json and type(request.json['icons']) is not type(list):
-        abort(400)
-    """
+    # TODO add tests to make sure data is formatted properly
     update_fields = {
-        "Name" : request.json["name"] if "name" in request.json else "",
-        "Desc" : request.json["desc"] if "desc" in request.json else "",
-        "Icons" : [] # TODO make icons work
-    }
-    update_fields = {
-        key: value for key, value in update_fields.items() if value is not None
+        k.title(): v for k, v in request.json.items() if v is not None
     }
     print(update_fields)
-    wait = input("waiting...\n\n\n")
-    services_object.replace(service['id'], jsonify(update_fields))
-    wait = input("waiting...\n\n\n")
+    print(service['id'])
+    services_object.replace(service['id'], update_fields)
     return jsonify({'service': make_public_service(service)})
 
 # ERRORS returned as JSON
