@@ -13,7 +13,8 @@ from modules.api_validation import (
     unauthorized
 )
 from modules.airtable_call import (
-    airtable_call,
+    services_call,
+    icons_call,
     create_services_object,
     create_icons_object
 )
@@ -24,16 +25,17 @@ app = Flask(__name__)
 
 services_object = create_services_object()
 icons_object = create_icons_object()
-services = airtable_call()
+services = services_call()
+icons = icons_call()
 
 
-# GET for all records
+# GET for all services
 @app.route('/cards/api/services/', methods=['GET'])
 @auth.login_required
 def get_services():
     return jsonify({'services': [make_public_service(s) for s in services]})
 
-# GET for single record
+# GET for single service
 @app.route('/cards/api/services/<int:service_id>', methods=['GET'])
 @auth.login_required
 def get_service(service_id):
@@ -48,20 +50,15 @@ def get_service(service_id):
 def create_service():
     if not request.json or not 'name' in request.json:
         abort(400)
-    icon_ids = []
+    new_icons = []
     for icon in request.json["icons"]:
-        new_icon = {
-            "icon" : icon["icon"],
-            "text" : icon["text"]
-        }
-        new_icon_record = icons_object.insert(new_icon)
-        icon_ids.append(new_icon_record["id"])
-    refreshed_icons_object = create_icons_object() # get the new ones
+        new_icon = create_icon()
+        new_icons.append(new_icon)
     service = {
         # id is handled by airtable automatically
         "Name": request.json["name"],
         "Desc": request.json.get("desc", ""),
-        "Icons": [refreshed_icons_object.get(id) for id in icon_ids]
+        "Icons": new_icons
     }
     services_object.insert(service)
     return jsonify({'service': make_public_service(service)}), 201
@@ -93,6 +90,36 @@ def update_service(service_id):
     print(service['id'])
     services_object.replace(service['id'], update_fields)
     return jsonify({'service': make_public_service(service)})
+
+# GET for all icons
+@app.route('/cards/api/icons/', methods=['GET'])
+@auth.login_required
+def get_icons():
+    return jsonify({'icons': [i for i in icons]})
+
+# GET for single icon
+@app.route('/cards/api/icons/<int:icon_id>', methods=['GET'])
+@auth.login_required
+def get_icon(icon_id):
+    icon = [i for i in icons if i['id'] == icon_id]
+    if len(icon) == 0:
+        abort(404)
+    return jsonify({'icon': icon[0]})
+
+# POST for icons
+@app.route('/cards/api/icons/', methods=['POST'])
+@auth.login_required
+def create_icon():
+    if not request.json or not 'icon' in request.json or not 'text' in request.json:
+        abort(400)
+    icon = {
+        # id will be handled by airtable
+        "icon" : request.json["icon"],
+        "text" : request.json["text"],
+        "Services" : []
+    }
+    new_icon_record = icons_object.insert(icon)
+    return jsonify({'icon': icon}), 201
 
 # ERRORS returned as JSON
 @app.errorhandler(404)

@@ -1,0 +1,116 @@
+[
+  {
+    "id": 1,
+    "icon": "fas fa-first-aid fa-lg",
+    "text": "18,500+ recuers & volunteers",
+    "service": "Crowdsource Rescue"
+  },
+  {
+    "id": 2,
+    "icon": "fas fa-ambulance fa-lg",
+    "text": "46,000+ survivors helped",
+    "service": "Crowdsource Rescue"
+  },
+  {
+    "id": 3,
+    "icon": "fas fa-house-damage fa-lg",
+    "text": "Need a place",
+    "service": "Harmany"
+  },
+  {
+    "id": 4,
+    "icon": "fas fa-home fa-lg",
+    "text": "Have a place",
+    "service": "Harmany"
+  },
+  {
+    "id": 5,
+    "icon": "fas fa-warehouse fa-lg",
+    "text": "11,000+ temporary homes provided.",
+    "service": "Airbnb"
+  },
+  {
+    "id": 6,
+    "icon": "fas fa-power-off fa-lg",
+    "text": "Power Outage Map.",
+    "service": "JEA Power Outages"
+  },
+  {
+    "id": 7,
+    "icon": "fas fa-battery-empty fa-lg",
+    "text": "Report Power Outage.",
+    "service": "JEA Power Outages"
+  },
+  {
+    "id": 8,
+    "icon": "fas fa-tint-slash fa-lg",
+    "text": "Water Outage Map.",
+    "service": "JEA Water Outages"
+  },
+  {
+    "id": 9,
+    "icon": "fas fa-water fa-lg",
+    "text": "Report Water Outage.",
+    "service": "JEA Water Outages"
+  },
+  {
+    "id": 10,
+    "icon": "fas fa-user-shield fa-lg",
+    "text": "Check on a loved one.",
+    "service": "Red Cross Safe &  Well"
+  },
+  {
+    "id": 11,
+    "icon": "fas fa-save fa-lg",
+    "text": "Report yourself safe.",
+    "service": "Red Cross Safe &  Well"
+  },
+  {
+    "id": 12,
+    "icon": "fas fa-fire fa-lg",
+    "text": "Fi-fi-fi-fire!",
+    "service": "Fire Chat"
+  },
+  {
+    "id": 13,
+    "icon": "fas fa-igloo fa-lg",
+    "text": "Gimme shelter",
+    "service": "CFA Shelter Project"
+  },
+  {
+    "id": 14,
+    "icon": "fas fa-heart fa-lg",
+    "text": "Ready for love (and emergencies)",
+    "service": "JAX Ready"
+  },
+  {
+    "id": 15,
+    "icon": "fas fa-toggle-on fa-lg",
+    "text": "Stay connected in and around Tallahassee",
+    "service": "Leon County Citizens Connect"
+  },
+  {
+    "id": 16,
+    "icon": "fas fa-music fa-lg",
+    "text": "Find a concert",
+    "service": "TallyMusic"
+  },
+  {
+    "id": 17,
+    "icon": "fas fa-palette fa-lg",
+    "text": "Find something cool",
+    "service": "COCA"
+  },
+  {
+    "id": 19,
+    "icon": "fas fa-palette fa-lg",
+    "text": "Find something cool",
+    "service": []
+  },
+  {
+    "id": 20,
+    "icon": "fas fa-palette fa-lg",
+    "text": "Find something cool",
+    "service": []
+  }
+]

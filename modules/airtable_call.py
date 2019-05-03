@@ -16,8 +16,8 @@ def create_services_object():
 def create_icons_object():
     return Airtable(BASE_ID, ICONS_TABLE)
 
-def airtable_call():
-    services_object = Airtable(BASE_ID, SERVICES_TABLE)
+def services_call():
+    services_object = create_services_object()
     records = services_object.get_all(sort="ID")
 
     service_list = []
@@ -37,10 +37,38 @@ def airtable_call():
 
         service_list.append(od)
 
-    with open("output.json", "w") as f:
+    with open("services_output.json", "w") as f:
         json.dump(service_list, f, indent=2)
 
     return service_list
+
+def icons_call():
+    icons_object = create_icons_object()
+    icons = icons_object.get_all(sort="id")
+
+    icon_list = []
+    for icon in icons:
+        icon_dict = {
+            "id" : icon['fields']['id'],
+            "icon" : icon['fields']['icon'],
+            "text" : icon['fields']['text'],
+            "service" : []
+        }
+        try:
+            for record_id in icon['fields']['Services']:
+                service_record = icons_object.get(record_id)
+                icon_dict["service"].append(service_record['fields']['Name'])
+        except KeyError:
+            icon_dict["service"] = []
+        # This is currently always only one, but this futureproofs for more
+        if len(icon_dict["service"]) is 1:
+            icon_dict["service"] = icon_dict["service"][0]
+        icon_list.append(icon_dict)
+
+    with open("icons_output.json", "w") as f:
+        json.dump(icon_list, f, indent=2)
+
+    return icon_list
 
 
 """
