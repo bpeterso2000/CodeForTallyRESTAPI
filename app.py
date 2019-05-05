@@ -44,7 +44,7 @@ def get_service(service_id):
         abort(404)
     return jsonify({'service': make_public_service(service[0])})
 
-# POST
+# POST service
 @app.route('/cards/api/services/', methods=['POST'])
 @auth.login_required
 def create_service():
@@ -63,7 +63,7 @@ def create_service():
     services_object.insert(service)
     return jsonify({'service': make_public_service(service)}), 201
 
-# DELETE
+# DELETE service
 @app.route('/cards/api/services/<int:service_id>', methods=['DELETE'])
 @auth.login_required
 def delete_service(service_id):
@@ -73,7 +73,7 @@ def delete_service(service_id):
     services_object.delete(service['id'])
     return jsonify({'result': True})
 
-# PUT
+# PUT for service
 @app.route('/cards/api/services/<int:service_id>', methods=['PUT'])
 @auth.login_required
 def update_service(service_id):

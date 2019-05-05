@@ -100,17 +100,5 @@
     "icon": "fas fa-palette fa-lg",
     "text": "Find something cool",
     "service": "COCA"
-  },
-  {
-    "id": 19,
-    "icon": "fas fa-palette fa-lg",
-    "text": "Find something cool",
-    "service": []
-  },
-  {
-    "id": 20,
-    "icon": "fas fa-palette fa-lg",
-    "text": "Find something cool",
-    "service": []
   }
 ]
